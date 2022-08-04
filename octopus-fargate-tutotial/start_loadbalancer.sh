@@ -15,7 +15,7 @@ targetGroupArn=$(aws elbv2 create-target-group \
     --name ecs-$NAME-target-group \
     --protocol TCP \
     --port 80 \
-    --target-type instance \
+    --target-type ip \
     --vpc-id $VPC_ID | jq -r '.TargetGroups' | jq .[0] | jq .TargetGroupArn | sed "s/\"//g")
 
 sleep 2
@@ -42,7 +42,7 @@ echo "Create a TCP linstener to the target group $targetGroupArn"
 result=$(aws elbv2 create-listener --load-balancer-arn $arn --protocol TCP --port 80 --default-actions Type=forward,TargetGroupArn=$targetGroupArn)
 
 echo "Wait until the Load balancer created"
-sleep 45
+sleep 10
 
 route_53_json='
 {
