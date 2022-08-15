@@ -5,6 +5,7 @@ SUBNET_ID=$3
 CERTIFICATE_ID=$4
 ROUTE_NAME=$5
 HOSTED_ZONE_ID=$6
+DOMAIN_NAME=$7
 
 elastic_file_name="elastic.json"
 temp_file_name="temp.json"
@@ -51,10 +52,10 @@ route_53_json='
       {
          "Action":"UPSERT",
          "ResourceRecordSet":{
-            "Name":"'$ROUTE_NAME'.afj-solution.com",
+            "Name":"'$ROUTE_NAME'.'$DOMAIN_NAME'",
             "Type":"A",
             "AliasTarget":{
-               "HostedZoneId":"ZLMOA37VPKANP",
+               "HostedZoneId":"'$HOSTED_ZONE_ID'",
                "DNSName":"'$loadBalancerDns'",
                "EvaluateTargetHealth":false
             }
@@ -63,10 +64,10 @@ route_53_json='
       {
          "Action":"UPSERT",
          "ResourceRecordSet":{
-            "Name":"www.'$ROUTE_NAME'.afj-solution.com",
+            "Name":"www.'$ROUTE_NAME'.'$DOMAIN_NAME'",
             "Type":"A",
             "AliasTarget":{
-               "HostedZoneId":"ZLMOA37VPKANP",
+               "HostedZoneId":"'$HOSTED_ZONE_ID'",
                "DNSName":"'$loadBalancerDns'",
                "EvaluateTargetHealth":false
             }
