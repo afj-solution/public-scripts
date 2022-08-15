@@ -1,2 +1,2 @@
-# public-scripts
+# AFJ public-scripts
 Public scripts
